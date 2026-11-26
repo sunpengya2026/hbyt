@@ -175,7 +175,7 @@
             <!-- 章节完整内容 -->
             <div class="section-content">
               <h4><i class="el-icon-document"></i> 章节内容</h4>
-              <div class="content-text" v-html="formatContent(currentSection.content)"></div>
+              <div class="content-text">{{ currentSection.content }}</div>
             </div>
 
             <!-- 提取摘要 -->
@@ -428,13 +428,6 @@ export default {
       if (confidence === '高') return 'success'
       if (confidence === '中') return 'warning'
       return 'info'
-    },
-
-    // 格式化内容（高亮关键词）
-    formatContent(content) {
-      if (!content) return ''
-      // 将换行转换为 <br>
-      return content.replace(/\n/g, '<br>')
     },
 
     // 返回上传页面

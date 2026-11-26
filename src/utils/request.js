@@ -9,16 +9,21 @@ const service = axios.create({
   timeout: 300000  // 5分钟超时
 })
 
-// 免登录开关（与 main.js / store/modules/user.js 保持一致）
-// 开启时后端返回 token 失效不跳登录页，避免与路由守卫互相弹跳造成循环
-const FREE_LOGIN = process.env.VUE_APP_FREE_LOGIN !== 'false'
+function expireSession(config) {
+  if (!config.sessionIdentity || config.sessionIdentity !== store.getters.userInfo) return
+
+  Message.error('登录信息已失效，请重新登录')
+  store.dispatch('user/resetToken').then(() => {
+    if (router.currentRoute.path !== '/login') router.replace('/login')
+  })
+}
 
 // request interceptor
 service.interceptors.request.use(
   config => {
-    if (store.getters.token) {
-      config.headers['Authorization'] = getToken()
-    }
+    const token = getToken()
+    if (token) config.headers['Authorization'] = token
+    if (!config.skipSessionReset) config.sessionIdentity = store.getters.userInfo
     if (!config.headers['Content-Type']) {
       config.headers['Content-Type'] = 'application/json; charset=UTF-8'
     }
@@ -44,17 +49,9 @@ service.interceptors.response.use(
     if (res.code === 0 || res.code === 200 || res.code === 'ok' || res.code === 'OK') {
       return res
     } else {
-      if (res.code === 'ERROR-TOKEN-INVALID' || res.code === -401) {
-        // 免登录模式没有真实登录态，跳 /login 会被守卫弹回首页造成循环，
-        // 这里只提示，不跳转。
-        if (FREE_LOGIN) {
-          Message.error(res.message || '请求失败')
-        } else {
-          Message.error('登录信息已失效，请重新登录')
-          store.dispatch('user/logout').then(() => {
-            router.push('/login')
-          })
-        }
+      if (['ERROR-TOKEN-INVALID', 'ERROR-TOKEN-NULL', -401, 401].includes(res.code) &&
+          !response.config.skipSessionReset) {
+        expireSession(response.config)
       } else {
         Message.error(res.message || '请求失败')
       }
@@ -63,6 +60,10 @@ service.interceptors.response.use(
   },
   error => {
     console.log('err' + error)
+    if (error.response && error.response.status === 401 && error.config && !error.config.skipSessionReset) {
+      expireSession(error.config)
+      return Promise.reject(error)
+    }
     let message = error.message
     if (error.response) {
       const data = error.response.data

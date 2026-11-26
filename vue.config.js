@@ -23,6 +23,7 @@ module.exports = {
   outputDir: 'dist',
   assetsDir: 'static',
   lintOnSave: false,
+  transpileDependencies: ['docx-preview'],
   productionSourceMap: true,
   parallel: false,
   devServer: {
@@ -117,6 +118,7 @@ module.exports = {
         alias: {
             '@': resolve('src'),
             '@public': path.resolve(__dirname, 'public'),
+            'docx-preview$': require.resolve('docx-preview'),
             /* [安全清理-中风险] 'jquery': 'jquery', */
         },
     },
@@ -136,6 +138,18 @@ module.exports = {
     ],
   },
   chainWebpack(config) {
+    // webpack 4 cannot parse these operators in the DOCX renderer.
+    config.module.rule('js').use('babel-loader').tap(options => ({
+      ...options,
+      overrides: [{
+        test: /node_modules[\\/]docx-preview[\\/]/,
+        plugins: [
+          '@babel/plugin-transform-optional-chaining',
+          '@babel/plugin-transform-nullish-coalescing-operator'
+        ]
+      }]
+    }))
+
     // 注意：配置了 pages 后，vue-cli 不再自动注入 preload 插件，
     // 因此这里必须做存在性判断，否则 .tap() 会抛
     // "Cannot call .tap() on a plugin that has not yet been defined"。

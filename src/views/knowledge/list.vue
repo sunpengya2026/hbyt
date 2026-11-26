@@ -158,7 +158,8 @@
           :source="previewExcelSource"
           max-height="66vh"
         />
-        <div v-else class="detail-content preview-body" v-html="previewHtml"></div>
+        <p v-else-if="previewError" class="empty-hint">{{ previewError }}</p>
+        <div v-else class="detail-content preview-body" v-html="sanitizeRichText(previewHtml)"></div>
       </div>
     </el-dialog>
 
@@ -246,6 +247,7 @@
 </template>
 
 <script>
+import { sanitizeRichText } from '@/utils/sanitize-rich-text'
 import {
   getRagDatasetsApi,
   getRagWorkbenchDatasetApi,
@@ -285,6 +287,7 @@ export default {
       importDialogVisible: false,
       currentKnowledge: {},
       previewHtml: '',
+      previewError: '',
       /** 'html'（后端转换正文）| 'xlsx'（前端解析原始表） */
       previewKind: 'html',
       /** Excel 预览源（ArrayBuffer） */
@@ -327,6 +330,7 @@ export default {
     this.loadDatasets()
   },
   methods: {
+    sanitizeRichText,
     /* ---------- 知识库 ---------- */
     async loadDatasets() {
       try {
@@ -399,6 +403,7 @@ export default {
     async handleView(row) {
       this.currentKnowledge = { ...row }
       this.previewHtml = ''
+      this.previewError = ''
       this.previewExcelSource = null
       this.previewKind = 'html'
       this.detailVisible = true
@@ -427,7 +432,7 @@ export default {
         if (this.previewKind === 'xlsx') {
           this.previewKind = 'html'
         }
-        this.previewHtml = '<p class="empty-hint">预览失败：' + (e.message || '未知错误') + '</p>'
+        this.previewError = '预览失败：' + (e.message || '未知错误')
       } finally {
         this.previewLoading = false
       }

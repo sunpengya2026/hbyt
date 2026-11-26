@@ -13,6 +13,10 @@ const mutations = {
 }
 
 const actions = {
+  clearRoutes({ commit }) {
+    commit('SET_ROUTES', [])
+  },
+
   generateRoutes({ commit }, roles) {
     return new Promise(resolve => {
       let accessedRoutes
@@ -42,6 +46,7 @@ function filterAsyncRoutes(routes, roles) {
 }
 
 function hasPermission(roles, route) {
+  if (route.meta && route.meta.requiresAdmin) return roles.includes('admin')
   if (route.meta && route.meta.roles) {
     return roles.some(role => route.meta.roles.includes(role))
   } else {

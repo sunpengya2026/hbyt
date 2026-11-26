@@ -264,8 +264,10 @@
           class="editor-content"
           contenteditable="true"
           ref="editorContent"
-          v-html="editorContent"
+          v-html="safeEditorContent"
           @input="handleContentChange"
+          @paste="handleEditorPaste"
+          @drop.prevent"
           @scroll="handleEditorScroll"
           @wheel="unlockScrollSpy"
           @touchstart="unlockScrollSpy"
@@ -467,6 +469,7 @@
 </template>
 
 <script>
+import { sanitizeRichText } from '@/utils/sanitize-rich-text'
 import { naturalLanguageQuery, getAllTables, generateSql, executeSql } from '@/api/database'
 // ⚠️ 大文件跨路由传递走内存单例，不走 sessionStorage（5MB 配额扛不住 base64）
 import { takeExtractTask } from '@/utils/extractHandoff'
@@ -615,6 +618,9 @@ export default {
     }
   },
   computed: {
+    safeEditorContent() {
+      return sanitizeRichText(this.editorContent)
+    },
     // 当前高亮的章节节点（用于正文上方的「生成说明」条）
     activeSection() {
       if (!this.activeSectionUid) return null
@@ -811,6 +817,18 @@ export default {
     this.loadAvailableTables()
   },
   methods: {
+    handleEditorPaste(event) {
+      event.preventDefault()
+      const clipboard = event.clipboardData
+      if (!clipboard) return
+      const html = clipboard.getData('text/html')
+      if (html) {
+        document.execCommand('insertHTML', false, sanitizeRichText(html))
+      } else {
+        document.execCommand('insertText', false, clipboard.getData('text/plain'))
+      }
+    },
+
     /**
      * 加载「压裂设计智能体」生成结果。
      *

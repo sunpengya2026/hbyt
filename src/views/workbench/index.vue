@@ -494,6 +494,7 @@
 </template>
 
 <script>
+import { renderDocxPreview } from '@/utils/render-docx-preview'
 /**
  * 工作台 - 左侧对象树 / 右侧井号列表（3 : 7）
  *
@@ -1817,21 +1818,13 @@ export default {
      *    大文档（地质设计常见 2~3MB）就会出现「遮罩没了但正文还是空白」的假死感。
      */
     async renderGeoDocx(blob) {
-      const docxPreview = await import(/* webpackChunkName: "docx-preview" */ 'docx-preview')
       // 等一个 tick 让 el-drawer 的 DOM 挂载完成，否则 $refs.geoDocxBox 还是 undefined
       await this.$nextTick()
       const box = this.$refs.geoDocxBox
       if (!box) return
       box.innerHTML = ''
       try {
-        await docxPreview.renderAsync(blob, box, null, {
-          className: 'docx-wrapper',
-          inWrapper: true,
-          ignoreWidth: false,
-          ignoreHeight: true,
-          breakPages: true,
-          experimental: true
-        })
+        await renderDocxPreview(blob, box)
       } catch (e) {
         this.geoPreview.kind = 'none'
       }

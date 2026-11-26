@@ -60,8 +60,7 @@
             <el-dropdown-item>
               <i class="el-icon-setting"></i> 系统设置
             </el-dropdown-item>
-            <!-- 免登录模式下没有登录态可退出，隐藏入口 -->
-            <el-dropdown-item v-if="!freeLogin" divided>
+            <el-dropdown-item divided @click.native="logout">
               <i class="el-icon-switch-button"></i> 退出登录
             </el-dropdown-item>
           </el-dropdown-menu>
@@ -91,18 +90,14 @@ export default {
     },
     // 当前登录用户姓名（导航条右上角显示）
     // 数据源：store.modules.user 的 name，由 user/getUserInfo 调
-    //         GET /v1/auth/userinfo 写入；接口失败时 store 已降级为「管理员」
+    // 由路由守卫在服务端确认会话后写入
     displayName() {
       const s = this.$store.state.user
       return (
         s.name ||
         (s.userInfo && (s.userInfo.name || s.userInfo.userName)) ||
-        '管理员'
+        '用户'
       )
-    },
-    // 免登录模式（VUE_APP_FREE_LOGIN !== 'false'）下隐藏「退出登录」
-    freeLogin() {
-      return process.env.VUE_APP_FREE_LOGIN !== 'false'
     },
     // el-menu 的 background-color 需要 JS 值（它塞进内联 style，SCSS 变量进不来）。
     // 这里和下面 <style> 里的 $navbar-bg 保持同一色值 —— 两处都写 #2F82EB。
@@ -110,12 +105,10 @@ export default {
       return '#2F82EB'
     }
   },
-  created() {
-    // 兜底：正常流程下路由守卫已经拉过一次。
-    // Sidebar 在 layout/index.vue 里是常驻组件，若 store 仍为空
-    // （比如微前端子应用直连、单页调试），补一次拉取，否则会一直是「管理员」。
-    if (!this.$store.state.user.userInfo) {
-      this.$store.dispatch('user/getUserInfo')
+  methods: {
+    async logout() {
+      await this.$store.dispatch('user/logout')
+      this.$router.replace('/login')
     }
   }
 }

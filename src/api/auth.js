@@ -6,6 +6,7 @@ export function login(data) {
   return request({
     url: '/v1/auth/login',
     method: 'post',
+    skipSessionReset: true,
     data: {
       account: data.username,
       password: data.password,
@@ -34,18 +35,17 @@ export function logout() {
  *   成功 { code:'0', message:'成功', data:{ userName:'张三', ... } }
  *   失败 { code:'ERROR-TOKEN-NULL', message:'token为空或者未提供token', data:null }
  *
- * ⚠️ 不抛错给上层做「登录失效跳转」—— 姓名属于装饰性信息，
- *    拿不到就降级显示配置值，不能因此把用户挡在门外。
  */
 export function getUserInfo() {
   return getCurUser()
 }
 
-// 后端内置账号的用户信息（统一认证不可用时的兜底，恒成功）
+// 获取应用令牌对应的用户信息
 export function getBuiltinUserInfo() {
   return request({
     url: '/v1/auth/userinfo',
-    method: 'get'
+    method: 'get',
+    skipSessionReset: true
   })
 }
 

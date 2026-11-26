@@ -20,7 +20,8 @@
     "axios": "^1.7.9",
     "core-js": "^3.21.1",
     "dayjs": "^1.11.1",
-    "docx-preview": "^0.1.14",
+    "docx-preview": "0.4.1",
+    "dompurify": "3.5.0",
     "downloadjs": "^1.4.7",
     "element-ui": "^2.15.6",
     "file-saver": "^2.0.5",
@@ -39,6 +40,8 @@
     "vuex": "3.1.0"
   },
   "devDependencies": {
+    "@babel/plugin-transform-nullish-coalescing-operator": "^7.29.7",
+    "@babel/plugin-transform-optional-chaining": "^7.29.7",
     "@vue/cli-plugin-babel": "4.5.16",
     "@vue/cli-plugin-eslint": "4.5.16",
     "@vue/cli-service": "4.5.16",
@@ -59,7 +62,7 @@
     "svgo": "1.2.2",
     "url-loader": "^4.1.1",
     "vue-seamless-scroll": "^1.1.23",
-    "vue-template-compiler": "^2.6.10"
+    "vue-template-compiler": "2.6.10"
   },
   "browserslist": [
     "> 1%",

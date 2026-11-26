@@ -181,6 +181,7 @@
 </template>
 
 <script>
+import { renderDocxPreview } from '@/utils/render-docx-preview'
 /**
  * 工作台「设计文档」区块
  *
@@ -411,18 +412,10 @@ export default {
 
     /** docx → HTML（docx-preview），样式尽量贴近 Word 排版 */
     async renderDocx(blob) {
-      const docxPreview = await import(/* webpackChunkName: "docx-preview" */ 'docx-preview')
       const box = this.$refs.docxBox
       if (!box) return
       box.innerHTML = ''
-      await docxPreview.renderAsync(blob, box, null, {
-        className: 'docx-wrapper',
-        inWrapper: true,
-        ignoreWidth: false,
-        ignoreHeight: true,
-        breakPages: true,
-        experimental: true
-      })
+      await renderDocxPreview(blob, box)
     },
 
     clearPreview() {

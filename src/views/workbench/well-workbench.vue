@@ -430,6 +430,7 @@
 </template>
 
 <script>
+import { renderDocxPreview } from '@/utils/render-docx-preview'
 /**
  * 单井工作台
  * 从工作台对象树中点击某个井号后进入，聚合展示该井的：
@@ -1556,16 +1557,8 @@ export default {
           const box = this.$refs.docxPreviewBox
           if (box) {
             box.innerHTML = '<div style="padding:16px;color:#999;"><i class="el-icon-loading"></i> 正在加载文档...</div>'
-            const docxPreview = await import(/* webpackChunkName: "docx-preview" */ 'docx-preview')
             box.innerHTML = ''
-            await docxPreview.renderAsync(blob, box, null, {
-              className: 'docx-wrapper',
-              inWrapper: true,
-              ignoreWidth: false,
-              ignoreHeight: true,
-              breakPages: true,
-              experimental: true
-            })
+            await renderDocxPreview(blob, box)
           }
         } else if (cat === 'xlsx') {
           /* [安全清理-中风险] 已移除 xlsx 依赖，Excel 预览改为不支持

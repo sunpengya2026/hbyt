@@ -9,14 +9,14 @@
       <div class="error-actions">
         <el-button type="primary" @click="goHome">返回首页</el-button>
         <!-- 免登录模式下不存在登录页，「重新登录」按钮隐藏 -->
-        <el-button v-if="!freeLogin" @click="handleLogout">重新登录</el-button>
+        <el-button @click="handleLogout">重新登录</el-button>
       </div>
       <div class="error-suggestion">
         <p>可能的原因：</p>
         <ul>
-          <li v-if="!freeLogin">您尚未登录或登录已过期</li>
+          <li>您尚未登录或登录已过期</li>
           <li>您没有访问该页面的权限</li>
-          <li v-if="!freeLogin">您的账户已被禁用</li>
+          <li>您的账户已被禁用</li>
         </ul>
       </div>
     </div>
@@ -37,30 +37,16 @@ import { mapActions } from 'vuex'
 
 export default {
   name: 'Error401',
-  computed: {
-    // 免登录模式（VUE_APP_FREE_LOGIN !== 'false'）下隐藏登录相关文案与按钮
-    freeLogin() {
-      return process.env.VUE_APP_FREE_LOGIN !== 'false'
-    }
-  },
   methods: {
     ...mapActions('user', ['logout']),
-    ...mapActions('permission', ['clearRoutes']),
 
     goHome() {
       this.$router.push('/')
     },
 
-    handleLogout() {
-      // 免登录模式下不存在登录页，返回首页
-      const target = process.env.VUE_APP_FREE_LOGIN !== 'false' ? '/' : '/login'
-      this.logout()
-        .then(() => {
-          this.$router.push(target)
-        })
-        .catch(() => {
-          this.$router.push(target)
-        })
+    async handleLogout() {
+      await this.logout()
+      this.$router.replace('/login')
     }
   }
 }

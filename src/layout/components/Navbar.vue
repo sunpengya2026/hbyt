@@ -32,8 +32,7 @@
         </div>
         <el-dropdown-menu slot="dropdown" class="user-dropdown">
           <el-dropdown-item>个人中心</el-dropdown-item>
-          <!-- 免登录模式下没有登录态可退出（退出后守卫会立刻重新自动登录），隐藏入口避免误导 -->
-          <el-dropdown-item v-if="!freeLogin" divided @click.native="logout">退出登录</el-dropdown-item>
+          <el-dropdown-item divided @click.native="logout">退出登录</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>
@@ -58,26 +57,14 @@ export default {
     },
     // 当前登录用户姓名（导航条右上角显示）
     // 数据源：store.modules.user 的 name，由 user/getUserInfo 调用
-    //         GET /v1/auth/userinfo 后写入；接口失败时 store 已降级为「管理员」
+    // 由路由守卫在服务端确认会话后写入
     displayName() {
       const s = this.$store.state.user
       return (
         s.name ||
         (s.userInfo && (s.userInfo.name || s.userInfo.userName)) ||
-        '管理员'
+        '用户'
       )
-    },
-    // 免登录模式（VUE_APP_FREE_LOGIN !== 'false'）下隐藏「退出登录」
-    freeLogin() {
-      return process.env.VUE_APP_FREE_LOGIN !== 'false'
-    }
-  },
-  created() {
-    // 兜底：正常流程下路由守卫已经拉过一次。
-    // 但 Navbar 可能被单独挂载（单页调试 / 微前端子应用直连），
-    // 这时 store 里是空的，会一直显示「管理员」。补一次拉取。
-    if (!this.$store.state.user.userInfo) {
-      this.$store.dispatch('user/getUserInfo')
     }
   },
   methods: {
@@ -87,10 +74,9 @@ export default {
     toggleSideBar() {
       this.$store.dispatch('app/toggleSideBar')
     },
-    logout() {
-      this.$store.dispatch('user/logout')
-      // 免登录模式下不存在登录页，返回首页
-      this.$router.push(this.freeLogin ? '/' : '/login')
+    async logout() {
+      await this.$store.dispatch('user/logout')
+      this.$router.replace('/login')
     }
   }
 }

@@ -107,7 +107,7 @@
         <!-- 报告正文 -->
         <div class="report-section">
           <h2 class="section-title">报告正文</h2>
-          <div class="report-body" v-html="report.content"></div>
+          <div class="report-body" v-html="sanitizeRichText(report.content)"></div>
         </div>
 
         <!-- 附件列表 -->
@@ -184,6 +184,7 @@
 </template>
 
 <script>
+import { sanitizeRichText } from '@/utils/sanitize-rich-text'
 import { getReportDetail, saveReport, publishReport, exportReport } from '@/api/report'
 
 export default {
@@ -217,6 +218,7 @@ export default {
     this.loadReportDetail()
   },
   methods: {
+    sanitizeRichText,
     loadReportDetail() {
       getReportDetail(this.reportId)
         .then(res => {

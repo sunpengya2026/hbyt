@@ -119,7 +119,7 @@
                 <span class="fa-msg__time">{{ m.time }}</span>
               </div>
               <div class="fa-msg__bubble">
-                <div class="fa-msg__text" v-html="m.html"></div>
+                <div class="fa-msg__text" v-html="sanitizeRichText(m.html)"></div>
                 <div v-if="m.thinking" class="fa-msg__thinking">
                   <i class="el-icon-loading"></i> {{ m.thinking }}
                 </div>
@@ -397,6 +397,7 @@
 </template>
 
 <script>
+import { sanitizeRichText } from '@/utils/sanitize-rich-text'
 import { listWellDocs, listDocsByWellName, downloadWellDoc } from '@/api/wellDoc'
 import {
   generateByAgentStreamApi, generateByAgentApi, getExtractLogicApi, getAgentInfoApi
@@ -660,6 +661,7 @@ export default {
     await this.loadGeoDoc()
   },
   methods: {
+    sanitizeRichText,
     resolveWbWellId() {
       try {
         const raw = sessionStorage.getItem('wbSelectedWell')

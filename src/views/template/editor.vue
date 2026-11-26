@@ -219,6 +219,13 @@ export default {
     }
   },
   methods: {
+    escapePreviewText(value) {
+      return String(value == null ? '' : value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+    },
+
     loadTemplateDetail() {
       getTemplateDetail(this.templateId)
         .then(res => {
@@ -393,16 +400,16 @@ export default {
       const processNode = (node, level) => {
         const headingTag = level === 1 ? 'h2' : level === 2 ? 'h3' : 'h4'
         if (node.type === 'section' || node.type === 'subsection') {
-          html += `<${headingTag}>${node.name}</${headingTag}>`
+          html += `<${headingTag}>${this.escapePreviewText(node.name)}</${headingTag}>`
           if (node.children) {
             node.children.forEach(child => processNode(child, level + 1))
           }
         } else if (node.type === 'text') {
-          html += `<p class="placeholder-text">[${node.name} - ${node.prompt || '请配置提示词'}]</p>`
+          html += `<p class="placeholder-text">[${this.escapePreviewText(node.name)} - ${this.escapePreviewText(node.prompt || '请配置提示词')}]</p>`
         } else if (node.type === 'table') {
-          html += `<div class="placeholder-table"><p>[${node.name} - 表格占位]</p></div>`
+          html += `<div class="placeholder-table"><p>[${this.escapePreviewText(node.name)} - 表格占位]</p></div>`
         } else if (node.type === 'chart') {
-          html += `<div class="placeholder-chart"><p>[${node.name} - 图表占位]</p></div>`
+          html += `<div class="placeholder-chart"><p>[${this.escapePreviewText(node.name)} - 图表占位]</p></div>`
         }
       }
       structure.forEach(node => processNode(node, 1))

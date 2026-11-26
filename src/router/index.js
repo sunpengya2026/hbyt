@@ -11,24 +11,12 @@ import Layout from '@/layout'
  * Detail see: https://panjiachen.github.io/vue-element-admin-site/guide/essentials/router-and-nav.html
  */
 
-// ⚠️ 免登录开关（与 main.js / store / request.js 保持一致）
-// 开启时 /login 路由直接重定向到首页，浏览器里输入 xxx/#/login 也进不去登录页，
-// 彻底避免「访问首页被弹到登录页」。
-const FREE_LOGIN = process.env.VUE_APP_FREE_LOGIN !== 'false'
-
 export const constantRoutes = [
-  FREE_LOGIN
-    ? {
-        // 免登录：任何对 /login 的访问都回首页
-        path: '/login',
-        redirect: '/report-index/index',
-        hidden: true
-      }
-    : {
-        path: '/login',
-        component: () => import('@/views/login/index'),
-        hidden: true
-      },
+  {
+    path: '/login',
+    component: () => import('@/views/login/index'),
+    hidden: true
+  },
   {
     path: '/404',
     component: () => import('@/views/error-page/404'),

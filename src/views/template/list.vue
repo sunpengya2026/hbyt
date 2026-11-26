@@ -219,7 +219,6 @@
                 <i class="el-icon-loading"></i>
                 <span>正在加载文档预览...</span>
               </div>
-              <!-- 预览失败：优先走数据绑定，v-html 只作为渲染期的兜底容器 -->
               <div v-if="previewError" class="preview-error">
                 <i class="el-icon-warning"></i>
                 <div class="preview-error-body">
@@ -326,6 +325,7 @@
 </template>
 
 <script>
+import { renderDocxPreview } from '@/utils/render-docx-preview'
 import {
   getDocTemplateList,
   getPerforationMethods,
@@ -533,23 +533,14 @@ export default {
           return
         }
         this.previewKind = 'docx'
-        const docxPreview = await import(/* webpackChunkName: "docx-preview" */ 'docx-preview')
-        if (!stillCurrent()) return
         box.innerHTML = ''
-        await docxPreview.renderAsync(blob, box, null, {
-          className: 'docx-wrapper',
-          inWrapper: true,
-          ignoreWidth: false,
-          ignoreHeight: true,
-          breakPages: true,
-          experimental: true
-        })
+        await renderDocxPreview(blob, box, stillCurrent)
       } catch (e) {
         if (!stillCurrent()) return
         console.error('[docx-preview] 加载/渲染失败', e)
         this.previewKind = 'docx'
         this.previewError = e && e.message ? e.message : '预览加载失败'
-        box.innerHTML = `<div class="preview-error"><i class="el-icon-warning"></i><span>${this.previewError}</span></div>`
+        box.textContent = ''
       } finally {
         if (stillCurrent()) this.previewDocxLoading = false
       }

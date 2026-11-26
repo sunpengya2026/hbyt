@@ -21,7 +21,7 @@
       />
       <div class="checkbox">
         <input id="jzmm" name="jzmm" type="checkbox" v-model="rememberMe" />
-        <label for="jzmm">记住密码</label>
+        <label for="jzmm">记住用户名</label>
       </div>
       <el-button
         class="btn"
@@ -34,9 +34,6 @@
 </template>
 
 <script>
-/* [安全清理-中风险] 硬编码 AES 密钥的 crypto-js 已禁用
-import CryptoJS from 'crypto-js'
-*/
 import { mapActions } from 'vuex'
 
 export default {
@@ -64,25 +61,6 @@ export default {
 
     // 加载保存的登录信息
     loadSavedLogin() {
-      /* [安全清理-中风险] 不再从本地恢复明文/可逆加密口令
-      const savedLoginInfo = localStorage.getItem('loginInfo')
-      if (savedLoginInfo) {
-        try {
-          const { username, password } = JSON.parse(savedLoginInfo)
-          // 解密密码
-          const key = CryptoJS.enc.Utf8.parse('bQqGek1Uj5mHFp3S')
-          const iv = CryptoJS.enc.Utf8.parse('dsJS2t5o2h0W3EB2')
-          const encrypted = CryptoJS.AES.decrypt(password, key, { iv: iv })
-          const decryptedPassword = encrypted.toString(CryptoJS.enc.Utf8)
-
-          this.loginData.username = username
-          this.loginData.password = decryptedPassword
-          this.rememberMe = true
-        } catch (e) {
-          console.error('解密登录信息失败', e)
-        }
-      }
-      */
       const savedLoginInfo = localStorage.getItem('loginInfo')
       if (savedLoginInfo) {
         try {
@@ -96,18 +74,6 @@ export default {
         }
       }
     },
-
-    // AES加密
-    /* [安全清理-中风险] 硬编码 AES key/iv 已删除
-    encryptPassword(password) {
-      const key = CryptoJS.enc.Utf8.parse('bQqGek1Uj5mHFp3S')
-      const iv = CryptoJS.enc.Utf8.parse('dsJS2t5o2h0W3EB2')
-      const encrypted = CryptoJS.AES.encrypt(password, key, {
-        iv: iv
-      })
-      return encrypted.toString()
-    },
-    */
 
     // 登录
     handleLogin() {
@@ -124,13 +90,6 @@ export default {
 
       // 保存登录信息（本地仅存用户名，不存口令）
       if (this.rememberMe) {
-        /* [安全清理-中风险] 不再本地保存可逆加密口令
-        const encryptedPassword = this.encryptPassword(this.loginData.password)
-        localStorage.setItem('loginInfo', JSON.stringify({
-          username: this.loginData.username,
-          password: encryptedPassword
-        }))
-        */
         localStorage.setItem('loginInfo', JSON.stringify({
           username: this.loginData.username
         }))
@@ -138,7 +97,6 @@ export default {
         localStorage.removeItem('loginInfo')
       }
 
-      // 调用登录接口（发送明文密码）
       const loginParams = {
         username: this.loginData.username,
         password: this.loginData.password
@@ -150,7 +108,6 @@ export default {
           this.$router.push('/')
         })
         .catch(err => {
-          console.error('登录失败', err)
           this.$message.error(err.message || '登录失败，请检查用户名和密码')
         })
         .finally(() => {
