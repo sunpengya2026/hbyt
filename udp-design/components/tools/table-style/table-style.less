@@ -1,0 +1,71 @@
+// vxe-table样式处理
+.table-style.n-data-table {
+  .n-data-table-sorter {
+    .sorter-icon {
+      display: flex;
+      flex-direction: column;
+      font-size: 10px;
+      color: var(--n-th-icon-color);
+
+      >i:hover,
+      i.current {
+        color: #333;
+      }
+    }
+  }
+
+  .n-data-table-th .n-data-table-th__title-wrapper {
+    display: inline-flex;
+
+    .n-data-table-th__title {
+      flex: none;
+    }
+  }
+
+  .n-data-table-th {
+    text-align: center;
+    background: #f4f6f8;
+    border-right: 1px solid #e7ecf2;
+
+    .n-data-table-resize-button {
+      right: -8px;
+
+      &.n-data-table-resize-button--active::after,
+      &:hover::after {
+        background-color: initial;
+      }
+    }
+  }
+
+  .n-data-table-tr:nth-child(even) .n-data-table-td {
+    background: #f7fbfe;
+  }
+
+  .n-data-table-tr:not(.n-data-table-tr--summary):hover .n-data-table-td {
+    background: #f5f7fa;
+  }
+
+  .n-data-table-td {
+    text-align: center;
+    border-right: 1px solid #e7ecf2;
+  }
+
+  .n-data-table-th .n-data-table-filter {
+    position: initial;
+    display: inline-flex;
+    vertical-align: middle;
+
+    &.n-data-table-filter--show,
+    &:hover {
+      background: initial;
+
+      .filter-icon {
+        color: #333;
+      }
+    }
+
+    .filter-icon {
+      font-size: 12px;
+    }
+  }
+}

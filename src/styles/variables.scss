@@ -1,0 +1,78 @@
+// ============================================================
+// 全局 SCSS 变量
+// 色值口径与 5370dh-cbm-front（华北煤层气一体化平台）保持一致：
+//   - 导航条 / 顶栏底色：#2F82EB（亮品牌蓝）
+//   - Element 组件主色：#3D5FEF（靛蓝，按钮/链接/选中态）
+// 两套蓝并存是参考项目的既有设计，不要擅自合并，否则导航条会偏深、
+// 或按钮偏亮，与其它中石油业务系统放在一起就不像一个产品族了。
+//
+// ⚠️ 本文件由 vue.config.js 的 css.loaderOptions.sass.prependData
+//    自动注入到每个 <style lang="scss"> 中，因此不要在文件里写
+//    任何会产出 CSS 的规则（只放变量/函数/mixin）。
+// ============================================================
+
+// 主题（导航条 / 菜单底色）
+$theme: #2F82EB;
+
+// 基础颜色（Element 组件主色，与 element-variables.scss 的
+// $--colors.primary 必须同值，否则按钮和自定义组件会两套蓝）
+$primary-color: #3D5FEF;
+$success-color: #92f5be;
+$warning-color: #ffba00;
+$danger-color: #ff4949;
+$info-color: #909399;
+
+// 侧边栏
+$sideBarWidth: 210px;
+$sideBarCollapsedWidth: 64px;
+
+// 导航栏
+$navbarHeight: 50px;
+
+// 工具栏
+$toolbarHeight: 44px;
+
+// 标签栏
+$tagsViewHeight: 34px;
+
+// 主颜色
+$base-color: #3D5FEF;
+
+// 背景色
+$base-background: #f0f2f5;
+
+// 文字颜色
+// $base-text-color 对齐参考项目 $menuDarkText（#333333），
+// body 也是用它，改成 #303133 会让页面正文与参考项目差一档灰。
+$base-text-color: #333333;
+$base-light-text-color: #909399;
+$base-placeholder-text-color: #C0C4CC;
+
+// ------------------------------------------------------------
+// 以下为对齐参考项目 5370dh-cbm-front 而补充的语义变量
+// ------------------------------------------------------------
+
+// 导航条三态：底色 / 悬停 / 激活
+// 悬停与激活都用「半透明白」而不是实心深蓝，参考项目
+// views/headerMenu/index.vue 与 styles/sidebar.scss 都是这个口径。
+// 半透明叠在 #2F82EB 上自然变亮，比自己调一个色值更稳，
+// 将来换品牌色也不用回来重算。
+$navbar-bg: #2F82EB;
+$navbar-hover-bg: rgba(255, 255, 255, 0.1);
+$navbar-active-bg: rgba(255, 255, 255, 0.2);
+$navbar-text: #e6e6e6;
+$navbar-text-active: #ffffff;
+
+// 菜单项圆角（参考项目 nav-item / el-menu-item 均为 5px）
+$navbar-item-radius: 5px;
+
+// 正文字体族：参考项目 index.scss 的 body 用 Microsoft YaHei 打头，
+// 中文优先命中雅黑，避免英文系统字体先接管导致中文糊。
+$font-family-base: Microsoft YaHei, Helvetica Neue, Helvetica, PingFang SC,
+  Hiragino Sans GB, Arial, sans-serif;
+
+// 正文字号
+$font-size-base: 14px;
+
+// 全局圆角（参考项目 #app 下 .el-card/.el-message/.el-input__inner 统一 2px）
+$border-radius-base: 2px;

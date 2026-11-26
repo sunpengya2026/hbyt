@@ -1,0 +1,133 @@
+@import './variables.scss';
+@import './mixin.scss';
+
+body {
+  height: 100%;
+  width: 100%;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  // 字体口径对齐 5370dh-cbm-front/src/styles/index.scss：
+  // Microsoft YaHei 打头（中文优先命中雅黑），补上 font-size 与 color。
+  // 之前这里没有 font-size / color，页面正文全靠浏览器默认的 16px/#000，
+  // 与参考项目的 14px/#333 差一档，视觉上显得「散」。
+  font-family: $font-family-base;
+  font-size: $font-size-base;
+  color: $base-text-color;
+}
+
+label {
+  font-weight: 700;
+}
+
+html {
+  height: 100%;
+  box-sizing: border-box;
+}
+
+#app {
+  height: 100%;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+.no-padding {
+  padding: 0px !important;
+}
+
+.padding-content {
+  padding: 4px 0;
+}
+
+a:focus,
+a:active {
+  outline: none;
+}
+
+a,
+a:focus,
+a:hover {
+  cursor: pointer;
+  color: inherit;
+  text-decoration: none;
+}
+
+div:focus {
+  outline: none;
+}
+
+// 全局圆角与卡片内边距：对齐 5370dh-cbm-front/src/styles/index.scss 的 #app 规则。
+// 参考项目把 .el-card / .el-message / .el-input__inner 统一成 2px 圆角，
+// 比 Element 默认的 4px 更「硬」，配合 14px 正文更接近中石油后台系统的观感。
+//
+// ⚠️ 不要套在 #app 下面：el-dialog / el-select 下拉 / el-message 这些
+//    弹层被 appendToBody 挂在 <body> 上，不在 #app 里，套 #app 会漏掉一大半。
+//    另外 Element 自身的 .el-input__inner 是单类选择器（权重 0,1,0），
+//    这里用双类（0,2,0）稳压，不需要 !important。
+.el-card,
+.el-message,
+.el-input__inner,
+.el-textarea__inner {
+  border-radius: $border-radius-base;
+}
+
+.el-card__header {
+  padding: 10px;
+  font-size: 16px;
+}
+
+.el-card__body {
+  padding: 10px;
+}
+
+.el-divider--horizontal {
+  margin: 10px 0;
+}
+
+.clearfix {
+  &:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+  }
+}
+
+.app-container {
+  padding: 20px;
+}
+
+// main-container全局样式
+.app-main {
+  min-height: 100%;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.app-main-inner {
+  padding: 20px;
+}
+
+// 搜索栏
+.search-form {
+  margin-bottom: 15px;
+}
+
+// 卡片标题
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

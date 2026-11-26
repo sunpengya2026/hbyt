@@ -1,0 +1,8 @@
+{
+  "login": true,
+  "user": false,
+  "theme": true,
+  "i18n": true,
+  "ui": "naive",
+  "version": "0.1.6"
+}

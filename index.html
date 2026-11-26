@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="renderer" content="webkit">
+    <!-- [验收裁剪] 图片已删除
+    <link rel="icon" href="/static/logo.png" />
+    -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+  </head>
+  <script>
+    var userAgent = window.navigator.userAgent
+    var isIE = userAgent.indexOf('Trident') > -1 || userAgent.indexOf('MSIE') > -1 || userAgent.indexOf('Edge') > -1
+    var isChromeLow = userAgent.indexOf('Chrome') > -1 && +/Chrome\/(\d+)\./.exec(userAgent)[1] < 50
+    var isFirefoxLow = userAgent.indexOf('Firefox') > -1 && +/Firefox\/(\d+)\./.exec(userAgent)[1] < 62
+    if (isIE || isChromeLow || isFirefoxLow) {
+      /* [验收裁剪] kld-warning 静态页已删除 */
+      // window.location.href = '<%- UDP_PUBLIC_URL %>/static/kld-warning/index.html'
+    }
+  </script>
+  <body>
+    <div id="app"></div>
+    <div
+      id="app-mask"
+      style="
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      "
+    ></div>
+    <script>
+      /* [验收裁剪] page-loading.svg 已删除
+      fetch('<%- UDP_PUBLIC_URL %>/static/page-loading.svg').then(data=>{
+        if(data.status === 200){
+          return data.text()
+        }else{
+          return ''
+        }
+      }).then(res=>{
+        const parent = document.querySelector('#app-mask')
+        parent && (parent.innerHTML = res)
+      })
+      */
+    </script>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

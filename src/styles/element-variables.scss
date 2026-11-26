@@ -1,0 +1,47 @@
+/* Element UI 主题变量（覆盖编译版）
+ *
+ * ⚠️ 生效链路：main.js 里 **不再** import 预编译的
+ *    element-ui/lib/theme-chalk/index.css，而是 import 本文件，
+ *    由 sass 按这里的变量现场重编译整套 Element 主题。
+ *    改这里的色值，按钮/链接/选中态才会真的变色；
+ *    改 styles/variables.scss 的 $primary-color 只影响自定义组件。
+ *
+ * ⚠️ 必须用「老写法」$--color-primary 而不是「新写法」$--colors Map：
+ *    本项目 element-ui 是 ^2.15.6，它的 theme-chalk/src/common/var.scss
+ *    里全是 `$--color-primary: #409EFF !default;` 这种单变量声明，
+ *    根本没有 $--colors Map（grep -c '$--colors' 结果为 0）。
+ *    写 Map 不会报错，但会被完全忽略 —— 表现为「改了变量，按钮还是默认蓝」。
+ *
+ * 色值口径对齐 5370dh-cbm-front：
+ *   primary #3D5FEF / success #92f5be / warning #ffba00 / danger #ff4949
+ * 注意：导航条底色 #2F82EB 是另一套蓝，不在这里，
+ *       由 Sidebar.vue / layout/index.vue 单独控制。
+ */
+
+$--color-primary: #3D5FEF;
+// ⚠️ success / warning 照抄了 5370dh-cbm-front 的值，但那一对色在参考项目里
+//    只用作 $textSuccess/$textWarning（深底上的前景文字），不是按钮底色。
+//    直接当按钮底色用时，白字对比度只有 1.31 / 1.71（WCAG 下限 4.5），
+//    表现为「刷新」这类 success 按钮文字几乎看不见。
+//    如果业务接受，建议换成 #2b8a3e（4.37）/ #c07205（3.72）：
+//      $--color-success: #2b8a3e;
+//      $--color-warning: #c07205;
+//    当前先保持与参考项目一致，等业务确认后再改。
+$--color-success: #92f5be;
+$--color-warning: #ffba00;
+$--color-danger: #ff4949;
+$--color-info: #909399;
+
+$--button-font-weight: 400;
+$--border-color-light: #dfe4ed;
+$--border-color-lighter: #e6ebf5;
+$--table-border: 1px solid #DADCE0;
+
+$--font-path: '~element-ui/lib/theme-chalk/fonts';
+
+@import '~element-ui/packages/theme-chalk/src/index';
+
+:export {
+  name: 'scss';
+  theme: $--color-primary;
+}

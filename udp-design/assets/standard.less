@@ -1,0 +1,200 @@
+@primary-text-color: #252525;
+
+.mx-layout {
+  .n-layout .n-layout-header {
+    background: #fff;
+  }
+
+  .n-layout .n-layout-header .mx-layout-title_text {
+    font-size: 16px;
+    // color: @primary-text-color;
+    color:#fff;
+    font-weight: 500;
+  }
+
+  .n-menu .n-menu-item {
+    margin-top: 0;
+  }
+
+  .n-menu--horizontal.mx-layout-menu_horizontal .n-menu-item .n-menu-item-content .n-menu-item-content-header,
+  .n-menu--horizontal.mx-layout-menu_horizontal .n-submenu>.n-menu-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .n-menu--horizontal.mx-layout-menu_horizontal .n-menu-item .n-menu-item-content .n-menu-item-content-header a,
+  .n-menu--horizontal.mx-layout-menu_horizontal .n-submenu>.n-menu-item>.n-menu-item-content {
+    // color: @primary-text-color !important;
+    height: auto;
+    padding: 6px 12px;
+  }
+
+  .n-menu--horizontal.mx-layout-menu_horizontal .n-submenu>.n-menu-item>.n-menu-item-content {
+    padding: 6px 24px 6px 12px;
+  }
+
+  .n-menu--horizontal.mx-layout-menu_horizontal>.n-submenu::before {
+    right: 8px;
+  }
+
+  .n-menu--horizontal.mx-layout-menu_horizontal .n-menu-item .n-menu-item-content .n-menu-item-content-header span,
+  .n-menu--horizontal.mx-layout-menu_horizontal .n-submenu .n-menu-item-content-header span,
+  .n-menu--horizontal.mx-layout-menu_horizontal .n-menu-item .n-menu-item-content:hover .n-menu-item-content-header span,
+  .n-menu--horizontal.mx-layout-menu_horizontal .n-submenu:hover .n-menu-item-content-header span {
+    color: @primary-text-color !important;
+  }
+
+  .n-menu--horizontal.mx-layout-menu_horizontal>.n-submenu::before {
+    border-right: 1px solid @primary-text-color;
+    border-bottom: 1px solid @primary-text-color;
+  }
+
+  .n-menu--horizontal.mx-layout-menu_horizontal .n-menu-item .n-menu-item-content .n-menu-item-content-header .router-link-active,
+  .n-menu--horizontal.mx-layout-menu_horizontal .n-submenu>.n-menu-item>.n-menu-item-content--child-active {
+    color: var(--mx-primary) !important;
+    background: var(--mx-primary-opacity);
+    font-weight: 600;
+
+    &::after {
+      content: none;
+    }
+  }
+
+  .mx-header-message .n-badge .anticon {
+    color: @primary-text-color !important;
+  }
+
+  .mx-user-name>.n-avatar {
+    // background: var(--mx-primary-opacity);
+    background: #fff;
+  }
+
+  .mx-user-name .mx-user-name-text {
+    // color: @primary-text-color;
+    color:#fff;
+  }
+
+  .n-menu--horizontal.mx-layout-menu_horizontal .n-submenu>.n-menu-item>.n-menu-item-content--child-active .n-ellipsis>span {
+    color: var(--mx-primary) !important;
+  }
+
+  .n-layout-sider {
+    background: #fff;
+    box-shadow: 0px 1px 4px 1px rgba(0, 0, 0, 0.05);
+  }
+
+  .n-layout .n-layout-scroll-container>.n-layout-content.n-layout {
+    padding: 0 16px;
+  }
+}
+
+.n-dropdown-menu .n-dropdown-option div.n-dropdown-option-body {
+  font-size: 12px;
+
+  .router-link-active {
+    font-weight: 600;
+  }
+}
+
+.n-modal-container {
+  .n-card.n-modal>.n-card-header {
+    height: 48px;
+
+    padding: 0 24px;
+
+    display: flex;
+
+    align-items: center;
+
+    position: relative;
+
+    box-sizing: border-box;
+
+    // 3. 标题字体样式
+
+    .n-card-header__main {
+      font-size: 16px;
+
+      color: #252525;
+    }
+
+    // 5. 标题下面有一条分割线
+
+    &::after {
+      content: '';
+
+      position: absolute;
+
+      left: 0;
+
+      right: 0;
+
+      bottom: 0;
+
+      height: 1px;
+
+      background: rgba(0, 0, 0, 0.09);
+    }
+  }
+
+  .n-card.n-modal {
+    // 7. 内容区域与模态框边的最小间距为48px
+
+    .n-card__content {
+      padding: 48px;
+
+      box-sizing: border-box;
+    }
+
+    // 1. 表单上下间距16px
+
+    .n-form-item {
+      margin-bottom: 16px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    // 表单网格项也需要设置间距
+
+    .n-form-item-gi {
+      margin-bottom: 16px;
+    }
+
+    // 6. 模态框底部footer，高度47px，上面有一条分割线
+
+    .n-card__footer {
+      height: 47px;
+
+      padding: 0 24px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: flex-end;
+
+      position: relative;
+
+      box-sizing: border-box;
+
+      &::before {
+        content: '';
+
+        position: absolute;
+
+        left: 0;
+
+        right: 0;
+
+        top: 0;
+
+        height: 1px;
+
+        background: rgba(0, 0, 0, 0.09);
+      }
+    }
+  }
+}

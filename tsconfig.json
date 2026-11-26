@@ -1,0 +1,42 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "types": ["vite/client", "naive-ui/volar"],
+    "isolatedModules": true,
+    "useDefineForClassFields": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "strict": true,
+    "jsx": "preserve",
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "noUnusedLocals": true,
+    "ignoreDeprecations": "5.0",
+    "suppressImplicitAnyIndexErrors": true,
+    "lib": ["esnext", "dom"],
+    "typeRoots": ["./node_modules/@types/", "./udp-design/types", "./src/types"],
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"],
+      "udp": ["udp-design"],
+      "udp/*": ["udp-design/*"]
+    },
+    "skipLibCheck": true
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "build/**/*.d.ts",
+    "build/**/*.ts",
+    "udp-design/**/*.ts",
+    "udp-design/**/*.d.ts",
+    "udp-design/**/*.tsx",
+    "udp-design/**/*.vue",
+    "components.d.ts",
+    "auto-imports.d.ts"
+  ],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}

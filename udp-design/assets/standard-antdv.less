@@ -1,0 +1,241 @@
+@border-radius-base: 2px;
+@background-color: #F3F5F8;
+@colorPrimary: #4379ff;
+p {
+  margin-bottom: 0;
+}
+// 字号颜色设置
+.ant-drawer .ant-drawer-title {
+  font-size: 16px;
+}
+// 按钮button
+.ant-btn {
+  height: 28px;
+  padding: 5px 11px;
+  padding-top: 2px;
+}
+// tab 标签页
+.ant-tabs-card >.ant-tabs-nav .ant-tabs-tab{
+  padding: 3px 12px;
+}
+.ant-tabs-card.ant-tabs-top >.ant-tabs-nav .ant-tabs-tab,.ant-tabs-card >div>.ant-tabs-nav .ant-tabs-tab {
+  border-radius: 0;
+}
+.ant-tabs-card.ant-tabs-top >.ant-tabs-nav .ant-tabs-tab+.ant-tabs-tab,.ant-tabs-card.ant-tabs-bottom >.ant-tabs-nav .ant-tabs-tab+.ant-tabs-tab,.ant-tabs-card.ant-tabs-top >div>.ant-tabs-nav .ant-tabs-tab+.ant-tabs-tab,.ant-tabs-card.ant-tabs-bottom >div>.ant-tabs-nav .ant-tabs-tab+.ant-tabs-tab {
+   margin-left: -1px;
+}
+//  步骤条 steps
+@step-item-width: 24px;
+.ant-steps .ant-steps-item-icon{
+  height: @step-item-width;
+  width: @step-item-width;
+  line-height: @step-item-width - 2px;
+}
+.ant-steps .ant-steps-item-finish .ant-steps-item-icon >.ant-steps-icon {
+  top: 5px;
+}
+.ant-steps .ant-steps-item-content {
+  margin-top: -3px;
+}
+.anticon {
+  color: rgba(0,0,0,.45);
+}
+.ant-steps .ant-steps-item-finish .ant-steps-item-icon >.ant-steps-icon .anticon {
+  color: #4379ff;
+}
+.ant-steps .ant-steps-item-icon {
+  font-size: 14px;
+}
+// 表单元素高度
+@form-item-height: 28px;
+// 统一设置所有antd表单元素高度为28px
+.ant-input,
+.ant-input-affix-wrapper,
+.ant-select:not(.ant-select-customize-input) .ant-select-selector,
+.ant-picker,
+.ant-input-number,
+.ant-cascader-picker,
+.ant-mentions,
+.ant-input-group-wrapper .ant-input,
+.ant-input-group-wrapper .ant-input-affix-wrapper {
+  height: @form-item-height;
+  line-height: @form-item-height;
+  display: flex;
+  align-items: center;
+}
+.ant-select-multiple .ant-select-selection-item {
+  margin-top: -2px;
+  height: 22px;
+  line-height: 20px;
+}
+.ant-input-number .ant-input-number-input{
+  margin-top: -2px;
+}
+// 设置表单控件内部元素对齐
+.ant-input-affix-wrapper .ant-input,
+.ant-select-selection-search-input,
+.ant-picker-input > input {
+  height: auto;
+  line-height: normal;
+}
+
+// 设置下拉菜单项高度
+.ant-select-item {
+  min-height: @form-item-height;
+  line-height: @form-item-height;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+}
+
+// 设置表单标签对齐
+.ant-form-item-label > label {
+  height: @form-item-height;
+  line-height: @form-item-height;
+}
+// 表单项间距
+.ant-form-item {
+  margin-bottom: 14px;
+}
+.ant-input-search >.ant-input-group >.ant-input-group-addon:last-child .ant-input-search-button {
+  height: @form-item-height;
+}
+.ant-radio-button-wrapper {
+  height: @form-item-height;
+  line-height: @form-item-height - 2px;
+}
+.ant-tooltip .ant-tooltip-inner {
+  min-height: @form-item-height;
+  padding: 3px 8px;
+}
+// 标签
+.ant-tag {
+  padding: 1px 10px;
+}
+// 抽屉
+.ant-drawer .ant-drawer-header{
+  padding: 10px 20px;
+}
+.ant-descriptions .ant-descriptions-header {
+  margin-bottom: 12px;
+}
+.ant-descriptions .ant-descriptions-row >th, .ant-descriptions .ant-descriptions-row >td {
+  padding-bottom: 12px;
+}
+// 常规表格
+.ant-table-wrapper .ant-table-thead>tr>th, .ant-table-wrapper .ant-table-tbody>tr>td, .ant-table-wrapper tfoot>tr>th, .ant-table-wrapper tfoot>tr>td {
+   padding: 9px 16px;
+}
+
+// 紧凑型表格
+.ant-table-wrapper .ant-table.ant-table-small .ant-table-title, .ant-table-wrapper .ant-table.ant-table-small .ant-table-footer, .ant-table-wrapper .ant-table.ant-table-small .ant-table-thead>tr>th, .ant-table-wrapper .ant-table.ant-table-small .ant-table-tbody>tr>td, .ant-table-wrapper .ant-table.ant-table-small tfoot>tr>th, .ant-table-wrapper .ant-table.ant-table-small tfoot>tr>td {
+  padding: 5px 8px;
+}
+// 表头背景色
+.ant-table-wrapper .ant-table-thead >tr>th, .ant-table-wrapper .ant-table-thead >tr>td {
+  background-color: @background-color;
+}
+// 表格行hover颜色
+.ant-table-wrapper .ant-table-tbody > tr.ant-table-row:hover > td{
+  background: #E9F2FF;
+}
+// 折叠面板头部
+.ant-collapse>.ant-collapse-item >.ant-collapse-header{
+  background-color: @background-color;
+  padding: 9px 16x;
+}
+// 折叠面板内容区
+.ant-collapse .ant-collapse-content>.ant-collapse-content-box {
+  padding: 9px 16px;
+}
+
+.ant-select-multiple .ant-select-selection-item-remove {
+  margin-top: 5px;
+}
+.ant-message-custom-content {
+  display: flex;
+}
+
+// 弹框样式
+.ant-modal .ant-modal-content {
+  padding: 0;
+}
+.ant-modal-close {
+  margin-right: 0px;
+}
+.ant-modal .ant-modal-title{
+  padding: 16px;
+  border-bottom: 1px solid #d7d7d7;
+  font-size: 16px;
+  color: #252525;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+.ant-modal .ant-modal-footer {
+    padding: 16px;
+    margin-top: 0;
+    border-top: 1px solid #d7d7d7;
+}
+.ant-dropdown-menu-group{
+  padding: 12px 18px;
+  background: #fff;
+  border-radius: 0;
+  box-shadow: 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 9px 28px 8px rgba(0, 0, 0, 0.05);
+}
+// 描述列表labe颜色改变
+.ant-descriptions .ant-descriptions-item-label{
+  color:#8C8C8C;
+}
+// 去掉警告提示边线
+.ant-alert-success,.ant-alert-info,.ant-alert-error,.ant-alert-warning{
+  border: none;
+}
+//提示标题加粗
+.ant-notification-notice .ant-notification-notice-message {
+  font-weight: 500;
+}
+
+// 弹框样式
+.ant-modal .ant-modal-content {
+  padding: 0;
+}
+.ant-modal .ant-modal-title{
+  padding: 0 16px;
+    border-bottom: 1px solid #d7d7d7;
+    font-size: 16px;
+    color: #252525;
+    font-weight: 600;
+    margin-bottom: 16px;
+    height: 48px;
+    line-height: 48px;
+}
+.ant-modal .ant-modal-footer {
+    padding: 0 16px;
+    margin-top: 0;
+    border-top: 1px solid #d7d7d7;
+    height: 48px;
+    line-height: 48px;
+}
+.ant-modal .ant-modal-body {
+  padding: 20px 0px 30px;
+}
+.ant-popover .ant-popover-title {
+  margin-bottom: 1px solid #d7d7d7;
+}
+// 下拉菜单项hover
+.ant-dropdown{
+  box-shadow: 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 9px 28px 8px rgba(0, 0, 0, 0.05);
+}
+.ant-alert-success {
+  background: rgba(184,233,145,0.30);
+}
+.ant-alert-info {
+  background: rgba(175,209,255,0.30);
+}
+.ant-alert-warning {
+  background: rgba(255,225,164,0.40);
+}
+.ant-alert-error {
+  background: rgba(255,202,202,0.40);
+}
+
